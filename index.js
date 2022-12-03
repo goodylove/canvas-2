@@ -13,7 +13,7 @@ function handleMouseMove(e) {
 }
 addEventListener("mousemove", handleMouseMove);
 // drawing element
-
+const arrColor = ["#662400", "#B33F00", "#FF6B1A", "#006663", "#00B3AD"];
 //  to draw multiple  cirlce  we will use    class constructor
 class Circle {
   constructor(x, y, dx, dy, radius) {
@@ -23,12 +23,13 @@ class Circle {
     this.dy = dy;
     this.radius = radius;
     this.minRadius = radius;
+    this.color = arrColor[Math.floor(Math.random() * arrColor.length)];
   }
 
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = "rgba(0,0,0,0.5)";
+    ctx.fillStyle = this.color;
     ctx.stroke();
     ctx.fill();
   }
@@ -41,14 +42,13 @@ class Circle {
     }
     this.x += this.dx;
     this.y += this.dy;
-
     if (
-      mouse.x - this.x < 50 &&
-      mouse.x - this.x > -50 &&
-      mouse.y - this.y < 50 &&
-      mouse.y - this.y > -50
+      mouse.x - this.x < 100 &&
+      mouse.x - this.x > -100 &&
+      mouse.y - this.y < 100 &&
+      mouse.y - this.y > -100
     ) {
-      this.radius = this.radius < 50 ? this.radius + 1 : this.radius;
+      this.radius = this.radius < 40 ? this.radius + 1 : this.radius;
     } else {
       this.radius =
         this.radius > this.minRadius ? this.radius - 1 : this.radius;
@@ -61,7 +61,7 @@ class Circle {
 let arrCircle = [];
 
 for (let i = 0; i < 700; i++) {
-  let radius = Math.random() * 3 + 2;
+  let radius = Math.random() * 3 + 1;
   let x = Math.random() * (canvas.width - radius * 2) + radius;
   let y = Math.random() * (canvas.height - radius * 2) + radius;
   let dx = Math.random() - 0.5;
